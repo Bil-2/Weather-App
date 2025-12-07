@@ -13,10 +13,11 @@ export class ApiService {
 
   public data: any;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getWeather(city: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}?q=${city}&appid=${this.apiKey}&units=metric`).pipe(
+    // Use Netlify Function backend instead of direct API call
+    return this.http.get(`/.netlify/functions/weather?q=${city}`).pipe(
       tap((res: any) => this.data = res)
     );
   }
