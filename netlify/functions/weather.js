@@ -41,7 +41,7 @@ exports.handler = async (event) => {
 
     // Call OpenWeatherMap API
     const params = new URLSearchParams({
-      appid: process.env.OPENWEATHER_API_KEY || 'bd5e378503939ddaee76f12ad7a97608',
+      appid: process.env.OPENWEATHER_API_KEY || '24d300584f820ede6886da93fa566cd2',
       units: 'metric'
     });
 
