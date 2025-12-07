@@ -1,0 +1,68 @@
+<div class="legal-container">
+  <div class="legal-header">
+    <h1><i class="fas fa-cookie-bite"></i> Cookie Settings</h1>
+    <p class="update-date">Manage your cookie preferences</p>
+  </div>
+
+  <div class="legal-content">
+    <section>
+      <h2>About Cookies</h2>
+      <p>Cookies are small text files stored on your device to enhance your browsing experience. WeatherApp uses cookies
+        to remember your preferences and improve functionality.</p>
+    </section>
+
+    <div class="cookie-controls">
+      <div class="cookie-option">
+        <div class="cookie-header">
+          <div>
+            <h3>Essential Cookies</h3>
+            <p>Required for basic functionality</p>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" checked disabled>
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <p class="cookie-description">These cookies are necessary for the website to function and cannot be disabled.
+        </p>
+      </div>
+
+      <div class="cookie-option">
+        <div class="cookie-header">
+          <div>
+            <h3>Analytics Cookies</h3>
+            <p>Help us improve our service</p>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" [(ngModel)]="cookiePreferences.analytics" name="analytics">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <p class="cookie-description">These cookies collect anonymous information about how you use our website.</p>
+      </div>
+
+      <div class="cookie-option">
+        <div class="cookie-header">
+          <div>
+            <h3>Preference Cookies</h3>
+            <p>Remember your settings</p>
+          </div>
+          <label class="toggle-switch">
+            <input type="checkbox" [(ngModel)]="cookiePreferences.preferences" name="preferences">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <p class="cookie-description">These cookies remember your choices like theme and language preferences.</p>
+      </div>
+    </div>
+
+    <button class="save-btn" (click)="savePreferences()">
+      <i class="fas fa-save"></i> Save Preferences
+    </button>
+
+    <section>
+      <h2>More Information</h2>
+      <p>For more details about how we use cookies, please see our <a routerLink="/privacy">Privacy Policy</a>.</p>
+    </section>
+  </div>
+</div>

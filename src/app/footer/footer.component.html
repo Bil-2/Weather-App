@@ -1,0 +1,548 @@
+<style>
+  .modern-footer {
+    background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+    color: #ffffff;
+    padding: 64px 0 0;
+    margin-top: 100px;
+    font-family: 'Inter', 'Segoe UI', -apple-system, sans-serif;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Animated background gradient overlay */
+  .modern-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 50%, rgba(99, 179, 237, 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(56, 189, 248, 0.03) 0%, transparent 50%);
+    animation: gradientMove 15s ease infinite;
+    pointer-events: none;
+  }
+
+  @keyframes gradientMove {
+
+    0%,
+    100% {
+      opacity: 0.5;
+      transform: scale(1);
+    }
+
+    50% {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+  }
+
+  .footer-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Top section with CTA */
+  .footer-cta {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 48px;
+    margin-bottom: 56px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: slideUp 0.8s ease-out forwards;
+    opacity: 0;
+  }
+
+  .footer-cta:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 48px rgba(56, 189, 248, 0.15);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .footer-cta h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0 0 12px 0;
+    background: linear-gradient(135deg, #60a5fa 0%, #38bdf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .footer-cta p {
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.75);
+    margin: 0 0 28px 0;
+    line-height: 1.6;
+  }
+
+  .newsletter-form {
+    display: flex;
+    gap: 12px;
+    max-width: 480px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .newsletter-input {
+    flex: 1;
+    min-width: 240px;
+    padding: 14px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+  }
+
+  .newsletter-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .newsletter-input:focus {
+    border-color: #60a5fa;
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
+  }
+
+  .newsletter-btn {
+    padding: 14px 32px;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    white-space: nowrap;
+  }
+
+  .newsletter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(59, 130, 246, 0.4);
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  }
+
+  .newsletter-btn:active {
+    transform: translateY(0);
+  }
+
+  /* Main footer grid */
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .footer-column {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  .footer-column:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+
+  .footer-column:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .footer-column:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+
+  .footer-column:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .footer-logo {
+    font-size: 2.5rem;
+    filter: drop-shadow(0 4px 12px rgba(96, 165, 250, 0.3));
+  }
+
+  .footer-brand-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #60a5fa 0%, #38bdf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .footer-tagline {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  .trust-badges {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .trust-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: #86efac;
+    transition: all 0.3s ease;
+  }
+
+  .trust-badge:hover {
+    background: rgba(34, 197, 94, 0.15);
+    border-color: rgba(34, 197, 94, 0.5);
+    transform: scale(1.05);
+  }
+
+  .footer-column h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 20px 0;
+    color: #60a5fa;
+    letter-spacing: 0.5px;
+  }
+
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer-links li {
+    margin-bottom: 12px;
+  }
+
+  .footer-links a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 0.92rem;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+  }
+
+  .footer-links a::before {
+    content: '→';
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: all 0.25s ease;
+  }
+
+  .footer-links a:hover {
+    color: #60a5fa;
+    padding-left: 8px;
+  }
+
+  .footer-links a:hover::before {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Social links */
+  .social-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: 0.88rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .social-link:hover {
+    background: rgba(96, 165, 250, 0.15);
+    border-color: #60a5fa;
+    color: #60a5fa;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(96, 165, 250, 0.2);
+  }
+
+  .social-icon {
+    font-size: 1.2rem;
+  }
+
+  /* Bottom bar */
+  .footer-bottom {
+    padding: 28px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out 0.6s forwards;
+  }
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+
+  .footer-bottom-left {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .footer-bottom-left a {
+    color: #60a5fa;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.25s ease;
+  }
+
+  .footer-bottom-left a:hover {
+    color: #38bdf8;
+    text-decoration: underline;
+  }
+
+  .footer-legal-links {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer-legal-links a {
+    color: rgba(255, 255, 255, 0.55);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.25s ease;
+  }
+
+  .footer-legal-links a:hover {
+    color: #60a5fa;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .footer-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .modern-footer {
+      padding: 48px 0 0;
+      margin-top: 60px;
+    }
+
+    .footer-container {
+      padding: 0 20px;
+    }
+
+    .footer-cta {
+      padding: 32px 24px;
+      margin-bottom: 40px;
+    }
+
+    .footer-cta h2 {
+      font-size: 1.6rem;
+    }
+
+    .newsletter-form {
+      flex-direction: column;
+    }
+
+    .newsletter-input,
+    .newsletter-btn {
+      width: 100%;
+    }
+
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 36px;
+      padding-bottom: 36px;
+    }
+
+    .social-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+      text-align: center;
+      padding: 24px 0;
+    }
+
+    .footer-legal-links {
+      flex-direction: column;
+      gap: 12px;
+      text-align: center;
+    }
+  }
+</style>
+
+<footer class="modern-footer">
+  <div class="footer-container">
+
+    <!-- CTA Section -->
+    <div class="footer-cta">
+      <h2>Stay Weather-Ready</h2>
+      <p>Get personalized weather alerts and forecasts delivered to your inbox</p>
+      <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Thank you for subscribing!');">
+        <input type="email" class="newsletter-input" placeholder="Enter your email address" required />
+        <button type="submit" class="newsletter-btn">Subscribe Now</button>
+      </form>
+    </div>
+
+    <!-- Main Footer Grid -->
+    <div class="footer-grid">
+
+      <!-- Brand Column -->
+      <div class="footer-column">
+        <div class="footer-brand">
+          <span class="footer-logo"><i class="fas fa-cloud-sun"></i></span>
+          <span class="footer-brand-text">WeatherApp</span>
+        </div>
+        <p class="footer-tagline">
+          Your trusted companion for accurate, real-time weather information worldwide.
+          Powered by cutting-edge meteorological data to keep you informed and prepared.
+        </p>
+        <div class="trust-badges">
+          <span class="trust-badge">
+            <i class="fas fa-check-circle"></i>
+            Real-time Data
+          </span>
+          <span class="trust-badge">
+            <i class="fas fa-shield-alt"></i>
+            99.9% Uptime
+          </span>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="footer-column">
+        <h3>Quick Links</h3>
+        <ul class="footer-links">
+          <li><a routerLink="/home">Home</a></li>
+          <li><a routerLink="/forecast">7-Day Forecast</a></li>
+          <li><a routerLink="/radar">Weather Radar</a></li>
+          <li><a routerLink="/maps">Weather Maps</a></li>
+          <li><a routerLink="/alerts">Weather Alerts</a></li>
+        </ul>
+      </div>
+
+      <!-- Resources -->
+      <div class="footer-column">
+        <h3>Resources</h3>
+        <ul class="footer-links">
+          <li><a routerLink="/about">About Us</a></li>
+          <li><a routerLink="/api">Weather API</a></li>
+          <li><a routerLink="/blog">Weather Blog</a></li>
+          <li><a routerLink="/help">Help Center</a></li>
+          <li><a routerLink="/contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Connect -->
+      <div class="footer-column">
+        <h3>Connect</h3>
+        <div class="social-grid">
+          <a href="https://www.linkedin.com/in/biltu-bag-01b5172a7" target="_blank" class="social-link">
+            <i class="fab fa-linkedin-in social-icon"></i>
+            <span>LinkedIn</span>
+          </a>
+          <a href="https://github.com/biltubag" target="_blank" class="social-link">
+            <i class="fab fa-github social-icon"></i>
+            <span>GitHub</span>
+          </a>
+          <a href="https://x.com/bag_biltu" target="_blank" class="social-link">
+            <i class="fab fa-twitter social-icon"></i>
+            <span>Twitter</span>
+          </a>
+          <a href="mailto:biltubag29@gmail.com" class="social-link">
+            <i class="fas fa-envelope social-icon"></i>
+            <span>Email</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="footer-bottom">
+      <div class="footer-bottom-left">
+        <p>
+          © 2025 Crafted with ❤️ by
+          <a href="https://www.linkedin.com/in/biltu-bag-01b5172a7" target="_blank">Biltu Bag</a>
+          • Powered by OpenWeatherMap API
+        </p>
+      </div>
+      <ul class="footer-legal-links">
+        <li><a routerLink="/privacy">Privacy Policy</a></li>
+        <li><a routerLink="/terms">Terms of Service</a></li>
+        <li><a routerLink="/cookies">Cookie Settings</a></li>
+      </ul>
+    </div>
+
+  </div>
+</footer>

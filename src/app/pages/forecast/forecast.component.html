@@ -1,0 +1,28 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1><i class="fas fa-calendar-week"></i> 7-Day Forecast</h1>
+    <p>Extended weather forecast for the week ahead</p>
+  </div>
+
+  <div class="forecast-grid">
+    <div class="forecast-card" *ngFor="let day of forecastDays">
+      <div class="day-name">{{ day.name }}</div>
+      <div class="weather-icon"><i [class]="day.icon"></i></div>
+      <div class="temperature">
+        <span class="temp-high">{{ day.high }}°</span>
+        <span class="temp-low">{{ day.low }}°</span>
+      </div>
+      <div class="condition">{{ day.condition }}</div>
+      <div class="details">
+        <div class="detail-item">
+          <i class="fas fa-tint"></i>
+          <span>{{ day.precipitation }}%</span>
+        </div>
+        <div class="detail-item">
+          <i class="fas fa-wind"></i>
+          <span>{{ day.wind }} mph</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

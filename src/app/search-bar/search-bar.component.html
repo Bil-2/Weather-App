@@ -1,0 +1,14 @@
+<div class="search-wrapper">
+  <div class="search-container shadow-lg">
+    <input class="input-textbox" type="text" [(ngModel)]="location" placeholder="Search for a city..."
+      (keyup.enter)="search()" [disabled]="isLoading">
+    <button mat-icon-button (click)="search()" aria-label="Search icon" [disabled]="isLoading">
+      <mat-icon *ngIf="!isLoading">search</mat-icon>
+      <mat-spinner *ngIf="isLoading" diameter="24"></mat-spinner>
+    </button>
+  </div>
+  <div class="error-message" *ngIf="errorMessage">
+    <mat-icon>error_outline</mat-icon>
+    <span>{{ errorMessage }}</span>
+  </div>
+</div>
