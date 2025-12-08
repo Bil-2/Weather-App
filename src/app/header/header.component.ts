@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
   openGitHub() {
-    window.open('https://github.com/biltubag', '_blank');
+    window.open('https://github.com/Bil-2', '_blank');
   }
 
 }
