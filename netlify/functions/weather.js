@@ -46,7 +46,7 @@ exports.handler = async (event) => {
 
     if (type === 'geo') {
       // Request more results to prioritize Indian cities
-      url = `https://api.openweathermap.org/geo/1.0/direct?q=${q}&limit=15&appid=${apiKey}`;
+      url = `https://api.openweathermap.org/geo/1.0/direct?q=${q}&limit=30&appid=${apiKey}`;
     } else {
       const params = new URLSearchParams({
         appid: apiKey,
@@ -71,8 +71,8 @@ exports.handler = async (event) => {
         if (a.country !== 'IN' && b.country === 'IN') return 1;
         return 0; // Keep original order for same country
       });
-      // Return only top 5 after sorting
-      responseData = sortedResults.slice(0, 5);
+      // Return top 10 after sorting
+      responseData = sortedResults.slice(0, 10);
     } else {
       responseData = response.data;
     }
