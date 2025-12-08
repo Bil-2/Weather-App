@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>WeatherApp</title>
@@ -12,8 +13,17 @@
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#1976d2">
 </head>
+
 <body class="mat-typography">
   <app-root></app-root>
   <noscript>Please enable JavaScript to continue using this application.</noscript>
+
+  <!-- Hidden form for Netlify detection -->
+  <form name="newsletter" netlify netlify-honeypot="bot-field" hidden>
+    <input type="text" name="city" />
+    <input type="email" name="email" />
+    <input type="hidden" name="timestamp" />
+  </form>
 </body>
+
 </html>

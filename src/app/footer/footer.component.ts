@@ -51,7 +51,7 @@ export class FooterComponent implements OnInit {
       body: new URLSearchParams(formData as any).toString()
     })
       .then(() => {
-        this.submitMessage = '🎉 Success! Check your email to verify your subscription.';
+        this.submitMessage = '🎉 Success! You are subscribed. First report arrives tomorrow at 6 AM.';
         this.submitSuccess = true;
         this.newsletterEmail = '';
         this.newsletterCity = '';
