@@ -6,10 +6,12 @@
 
   <div class="radar-content">
     <div class="radar-map">
-      <div class="radar-placeholder">
-        <i class="fas fa-radar"></i>
-        <p>Interactive Radar Map</p>
-        <span>Real-time weather tracking</span>
+      <div class="radar-container"
+        style="width: 100%; height: 600px; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.2);">
+        <iframe width="100%" height="100%"
+          src="https://embed.windy.com/embed2.html?lat=20.593&lon=78.962&detailLat=20.593&detailLon=78.962&width=650&height=450&zoom=5&level=surface&overlay=rain&product=ecmwf&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1"
+          frameborder="0" style="border:0;" allowfullscreen>
+        </iframe>
       </div>
     </div>
 
