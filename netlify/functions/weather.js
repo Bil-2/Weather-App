@@ -42,9 +42,11 @@ exports.handler = async (event) => {
     // Call OpenWeatherMap API
     const apiKey = process.env.OPENWEATHER_API_KEY || '24d300584f820ede6886da93fa566cd2';
     let url;
+    let responseData;
 
     if (type === 'geo') {
-      url = `https://api.openweathermap.org/geo/1.0/direct?q=${q}&limit=5&appid=${apiKey}`;
+      // Request more results to prioritize Indian cities
+      url = `https://api.openweathermap.org/geo/1.0/direct?q=${q}&limit=15&appid=${apiKey}`;
     } else {
       const params = new URLSearchParams({
         appid: apiKey,
@@ -61,16 +63,30 @@ exports.handler = async (event) => {
     console.log('API call:', cacheKey);
     const response = await axios.get(url);
 
+    // Sort geocoding results to prioritize Indian cities
+    if (type === 'geo' && Array.isArray(response.data)) {
+      const sortedResults = response.data.sort((a, b) => {
+        // Indian cities (IN) come first
+        if (a.country === 'IN' && b.country !== 'IN') return -1;
+        if (a.country !== 'IN' && b.country === 'IN') return 1;
+        return 0; // Keep original order for same country
+      });
+      // Return only top 5 after sorting
+      responseData = sortedResults.slice(0, 5);
+    } else {
+      responseData = response.data;
+    }
+
     // Cache it
     cache.set(cacheKey, {
-      data: response.data,
+      data: responseData,
       timestamp: now
     });
 
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify(response.data)
+      body: JSON.stringify(responseData)
     };
 
   } catch (error) {
