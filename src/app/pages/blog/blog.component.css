@@ -1,13 +1,13 @@
 .page-container {
   min-height: calc(100vh - 400px);
   padding: 60px 32px;
-  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)
+  background: var(--bg-color);
 }
 
 .page-header {
   text-align: center;
   margin-bottom: 48px;
-  color: #333;
+  color: var(--text-color);
   animation: fadeIn .6s ease-out
 }
 
@@ -35,7 +35,7 @@
 }
 
 .blog-card {
-  background: #fff;
+  background: var(--card-background);
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 8px 24px rgba(0, 0, 0, .1);
@@ -76,7 +76,7 @@
 
 .blog-date {
   font-size: .85rem;
-  color: #6b7280;
+  color: var(--text-color);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: .5px
@@ -85,13 +85,13 @@
 .blog-content h3 {
   font-size: 1.5rem;
   margin: 12px 0;
-  color: #1f2937
+  color: var(--text-color)
 }
 
 .blog-content p {
   font-size: 1rem;
   line-height: 1.6;
-  color: #6b7280;
+  color: var(--text-color);
   margin: 0 0 20px
 }
 

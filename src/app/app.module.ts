@@ -7,7 +7,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CardComponent } from './card/card.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { ThemeService } from './theme.service';
@@ -59,6 +59,7 @@ import { environment } from '../environments/environment';
     MaterialModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable

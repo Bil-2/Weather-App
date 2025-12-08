@@ -1,13 +1,13 @@
 .page-container {
   min-height: calc(100vh - 400px);
   padding: 60px 32px;
-  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%)
+  background: var(--bg-color);
 }
 
 .page-header {
   text-align: center;
   margin-bottom: 48px;
-  color: #fff;
+  color: var(--text-color);
   animation: fadeIn .6s ease-out
 }
 
@@ -32,7 +32,7 @@
 }
 
 .api-section {
-  background: rgba(255, 255, 255, .95);
+  background: var(--card-background);
   border-radius: 16px;
   padding: 40px;
   margin-bottom: 24px;
@@ -42,13 +42,13 @@
 .api-section h2 {
   font-size: 1.8rem;
   margin: 0 0 16px;
-  color: #333
+  color: var(--text-color)
 }
 
 .api-section p {
   font-size: 1.05rem;
   line-height: 1.8;
-  color: #555;
+  color: var(--text-color);
   margin: 0 0 24px
 }
 
@@ -67,7 +67,7 @@
 }
 
 .api-example {
-  background: rgba(255, 255, 255, .95);
+  background: var(--card-background);
   border-radius: 16px;
   padding: 40px;
   margin-bottom: 24px;
@@ -77,7 +77,7 @@
 .api-example h3 {
   font-size: 1.5rem;
   margin: 0 0 20px;
-  color: #333
+  color: var(--text-color)
 }
 
 .code-block {
@@ -93,7 +93,7 @@
 }
 
 .api-features {
-  background: rgba(255, 255, 255, .95);
+  background: var(--card-background);
   border-radius: 16px;
   padding: 40px;
   animation: slideUp 1s ease-out
@@ -105,7 +105,7 @@
   gap: 12px;
   padding: 12px 0;
   font-size: 1.05rem;
-  color: #333
+  color: var(--text-color)
 }
 
 .feature-item i {

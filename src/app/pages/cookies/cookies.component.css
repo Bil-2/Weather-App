@@ -1,7 +1,7 @@
 .legal-container {
   min-height: calc(100vh - 400px);
   padding: 60px 32px;
-  background: #f9fafb
+  background: var(--bg-color)
 }
 
 .legal-header {
@@ -14,7 +14,7 @@
   font-size: 2.5rem;
   font-weight: 700;
   margin: 0 0 12px;
-  color: #1f2937;
+  color: var(--text-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,14 +23,14 @@
 
 .update-date {
   font-size: .9rem;
-  color: #6b7280;
+  color: var(--text-color);
   font-weight: 600
 }
 
 .legal-content {
   max-width: 900px;
   margin: 0 auto;
-  background: #fff;
+  background: var(--card-background);
   border-radius: 16px;
   padding: 48px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, .08);
@@ -47,7 +47,7 @@ section:last-child {
 
 section h2 {
   font-size: 1.6rem;
-  color: #1f2937;
+  color: var(--text-color);
   margin: 0 0 16px;
   padding-bottom: 12px;
   border-bottom: 2px solid #e5e7eb
@@ -56,7 +56,7 @@ section h2 {
 section p {
   font-size: 1.05rem;
   line-height: 1.8;
-  color: #4b5563;
+  color: var(--text-color);
   margin: 0 0 16px
 }
 
@@ -75,7 +75,7 @@ section a:hover {
 }
 
 .cookie-option {
-  background: #f9fafb;
+  background: var(--bg-color);
   border-radius: 12px;
   padding: 24px;
   margin-bottom: 20px;
@@ -91,19 +91,19 @@ section a:hover {
 
 .cookie-header h3 {
   font-size: 1.2rem;
-  color: #1f2937;
+  color: var(--text-color);
   margin: 0 0 4px
 }
 
 .cookie-header p {
   font-size: .9rem;
-  color: #6b7280;
+  color: var(--text-color);
   margin: 0
 }
 
 .cookie-description {
   font-size: .95rem;
-  color: #4b5563;
+  color: var(--text-color);
   line-height: 1.6;
   margin: 0
 }

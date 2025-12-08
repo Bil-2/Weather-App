@@ -6,6 +6,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
 
 const MaterialComponent = [
   MatButtonModule,
@@ -14,7 +16,9 @@ const MaterialComponent = [
   MatCardModule,
   MatDividerModule,
   MatSlideToggleModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatAutocompleteModule,
+  MatInputModule
 ];
 
 @NgModule({

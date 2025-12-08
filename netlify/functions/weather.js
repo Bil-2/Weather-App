@@ -15,7 +15,7 @@ exports.handler = async (event) => {
   }
 
   try {
-    const { q, lat, lon } = event.queryStringParameters || {};
+    const { q, lat, lon, type } = event.queryStringParameters || {};
 
     if (!q && (!lat || !lon)) {
       return {
@@ -25,7 +25,7 @@ exports.handler = async (event) => {
       };
     }
 
-    const cacheKey = (q || `${lat},${lon}`).toLowerCase();
+    const cacheKey = (type === 'geo' ? `geo:${q}` : (q || `${lat},${lon}`)).toLowerCase();
     const now = Date.now();
 
     // Check cache
@@ -35,24 +35,31 @@ exports.handler = async (event) => {
       return {
         statusCode: 200,
         headers,
-        body: JSON.stringify({ ...cached.data, cached: true })
+        body: JSON.stringify(cached.data) // data already object
       };
     }
 
     // Call OpenWeatherMap API
-    const params = new URLSearchParams({
-      appid: process.env.OPENWEATHER_API_KEY || '24d300584f820ede6886da93fa566cd2',
-      units: 'metric'
-    });
+    const apiKey = process.env.OPENWEATHER_API_KEY || '24d300584f820ede6886da93fa566cd2';
+    let url;
 
-    if (q) params.append('q', q);
-    else {
-      params.append('lat', lat);
-      params.append('lon', lon);
+    if (type === 'geo') {
+      url = `https://api.openweathermap.org/geo/1.0/direct?q=${q}&limit=5&appid=${apiKey}`;
+    } else {
+      const params = new URLSearchParams({
+        appid: apiKey,
+        units: 'metric'
+      });
+      if (q) params.append('q', q);
+      else {
+        params.append('lat', lat);
+        params.append('lon', lon);
+      }
+      url = `https://api.openweathermap.org/data/2.5/weather?${params.toString()}`;
     }
 
     console.log('API call:', cacheKey);
-    const response = await axios.get(`https://api.openweathermap.org/data/2.5/weather?${params.toString()}`);
+    const response = await axios.get(url);
 
     // Cache it
     cache.set(cacheKey, {
@@ -63,7 +70,7 @@ exports.handler = async (event) => {
     return {
       statusCode: 200,
       headers,
-      body: JSON.stringify({ ...response.data, cached: false })
+      body: JSON.stringify(response.data)
     };
 
   } catch (error) {

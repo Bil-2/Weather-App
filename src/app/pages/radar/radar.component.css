@@ -1,7 +1,7 @@
 .page-container {
   min-height: calc(100vh - 400px);
   padding: 60px 32px;
-  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  background: var(--bg-color);
 }
 
 .page-header {

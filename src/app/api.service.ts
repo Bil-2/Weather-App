@@ -21,8 +21,12 @@ export class ApiService {
     );
   }
 
-  fetchData(city: string): Observable<any> {
-    return this.getWeather(city);
+  fetchData(cityName: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}?q=${cityName}&appid=${this.apiKey}`);
+  }
+
+  searchCities(query: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}?type=geo&q=${query}&appid=${this.apiKey}`);
   }
 
   getWeatherIconUrl(iconCode: string): string {

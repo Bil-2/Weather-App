@@ -1,7 +1,14 @@
 <div class="search-wrapper">
   <div class="search-container shadow-lg">
-    <input class="input-textbox" type="text" [(ngModel)]="location" placeholder="Search for a city..."
-      (keyup.enter)="search()" [disabled]="isLoading">
+    <input class="input-textbox" type="text" [formControl]="searchControl" [matAutocomplete]="auto"
+      placeholder="Search for a city..." (keyup.enter)="search()" [disabled]="isLoading">
+
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onOptionSelected($event)">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{ option.name }}, {{ option.country }} <span *ngIf="option.state">({{option.state}})</span>
+      </mat-option>
+    </mat-autocomplete>
+
     <button mat-icon-button (click)="search()" aria-label="Search icon" [disabled]="isLoading">
       <mat-icon *ngIf="!isLoading">search</mat-icon>
       <mat-spinner *ngIf="isLoading" diameter="24"></mat-spinner>

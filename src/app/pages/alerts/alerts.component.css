@@ -1,13 +1,13 @@
 .page-container {
   min-height: calc(100vh - 400px);
   padding: 60px 32px;
-  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%)
+  background: var(--bg-color);
 }
 
 .page-header {
   text-align: center;
   margin-bottom: 48px;
-  color: #fff;
+  color: var(--text-color);
   animation: fadeIn .6s ease-out
 }
 
@@ -35,10 +35,10 @@
 }
 
 .alert-card {
-  background: rgba(255, 255, 255, .95);
+  background: var(--card-background);
   border-radius: 16px;
   padding: 32px;
-  color: #333;
+  color: var(--text-color);
   box-shadow: 0 8px 32px rgba(0, 0, 0, .2);
   animation: slideUp .6s ease-out backwards;
   position: relative;
@@ -109,7 +109,7 @@
 
 .alert-time {
   font-size: .9rem;
-  color: #6b7280;
+  color: var(--text-color);
   margin: 0 0 16px;
   font-weight: 600
 }
