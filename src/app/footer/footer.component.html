@@ -439,6 +439,52 @@
       text-align: center;
     }
   }
+
+  /* Newsletter Feedback Message */
+  .newsletter-message {
+    margin-top: 16px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-align: center;
+    animation: slideDown 0.3s ease-out;
+  }
+
+  .newsletter-message.success {
+    background: rgba(34, 197, 94, 0.15);
+    color: #22c55e;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+  }
+
+  .newsletter-message.error {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+  }
+
+  .newsletter-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+  }
+
+  .newsletter-input:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 </style>
 
 <footer class="modern-footer">
@@ -448,10 +494,28 @@
     <div class="footer-cta">
       <h2>Stay Weather-Ready</h2>
       <p>Get personalized weather alerts and forecasts delivered to your inbox</p>
-      <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Thank you for subscribing!');">
-        <input type="email" class="newsletter-input" placeholder="Enter your email address" required />
-        <button type="submit" class="newsletter-btn">Subscribe Now</button>
+
+      <form class="newsletter-form" name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field"
+        (ngSubmit)="onNewsletterSubmit($event)">
+        <!-- Netlify Forms hidden fields -->
+        <input type="hidden" name="form-name" value="newsletter" />
+        <p style="display: none;">
+          <label>Don't fill this out: <input name="bot-field" /></label>
+        </p>
+
+        <input type="email" name="email" class="newsletter-input" placeholder="Enter your email address"
+          [(ngModel)]="newsletterEmail" [disabled]="isSubmitting" required />
+        <button type="submit" class="newsletter-btn" [disabled]="isSubmitting">
+          <span *ngIf="!isSubmitting">Subscribe Now</span>
+          <span *ngIf="isSubmitting">Subscribing...</span>
+        </button>
       </form>
+
+      <!-- Feedback Message -->
+      <div *ngIf="submitMessage" class="newsletter-message" [class.success]="submitSuccess"
+        [class.error]="!submitSuccess">
+        {{ submitMessage }}
+      </div>
     </div>
 
     <!-- Main Footer Grid -->
