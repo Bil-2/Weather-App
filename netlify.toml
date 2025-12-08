@@ -10,6 +10,6 @@
   to = "/index.html"
   status = 200
 
-# Scheduled function - Daily Weather Emails at 6:00 AM IST (12:30 AM UTC)
-[[functions."daily-weather-email"]]
-  schedule = "30 0 * * *"
+# Note: Scheduled functions configured via Netlify UI
+# Go to: Site → Functions → daily-weather-email → Schedule
+# Set cron: 30 0 * * * (6:00 AM IST)
