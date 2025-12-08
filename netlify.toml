@@ -1,9 +1,15 @@
 [build]
-  command = "echo 'skipping build'"
-  functions = "netlify/functions"
+  command = "echo 'Skip build'"
   publish = "dist/weather-app"
+
+[functions]
+  directory = "netlify/functions"
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+
+# Scheduled function - Daily Weather Emails at 6:00 AM IST (12:30 AM UTC)
+[[functions."daily-weather-email"]]
+  schedule = "30 0 * * *"

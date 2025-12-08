@@ -97,16 +97,19 @@
 
   .newsletter-form {
     display: flex;
+    flex-direction: column;
     gap: 12px;
-    max-width: 480px;
+    max-width: 600px;
     margin: 0 auto;
-    flex-wrap: wrap;
-    justify-content: center;
+  }
+
+  .newsletter-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
   }
 
   .newsletter-input {
-    flex: 1;
-    min-width: 240px;
     padding: 14px 20px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 12px;
@@ -116,6 +119,7 @@
     outline: none;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
+    width: 100%;
   }
 
   .newsletter-input::placeholder {
@@ -139,7 +143,6 @@
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-    white-space: nowrap;
   }
 
   .newsletter-btn:hover {
@@ -474,6 +477,13 @@
     cursor: not-allowed;
   }
 
+  .newsletter-note {
+    margin-top: 12px;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+  }
+
   @keyframes slideDown {
     from {
       opacity: 0;
@@ -485,6 +495,23 @@
       transform: translateY(0);
     }
   }
+
+  /* Mobile responsiveness for newsletter */
+  @media (max-width: 600px) {
+    .newsletter-inputs {
+      grid-template-columns: 1fr;
+    }
+
+    .newsletter-input {
+      font-size: 0.9rem;
+      padding: 12px 16px;
+    }
+
+    .newsletter-btn {
+      font-size: 0.9rem;
+      padding: 12px 24px;
+    }
+  }
 </style>
 
 <footer class="modern-footer">
@@ -493,7 +520,7 @@
     <!-- CTA Section -->
     <div class="footer-cta">
       <h2>Stay Weather-Ready</h2>
-      <p>Get personalized weather alerts and forecasts delivered to your inbox</p>
+      <p>Get personalized weather alerts and forecasts delivered to your inbox every morning</p>
 
       <form class="newsletter-form" name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field"
         (ngSubmit)="onNewsletterSubmit($event)">
@@ -503,11 +530,16 @@
           <label>Don't fill this out: <input name="bot-field" /></label>
         </p>
 
-        <input type="email" name="email" class="newsletter-input" placeholder="Enter your email address"
-          [(ngModel)]="newsletterEmail" [disabled]="isSubmitting" required />
+        <div class="newsletter-inputs">
+          <input type="text" name="city" class="newsletter-input city-input" placeholder="Your City (e.g., Mumbai)"
+            [(ngModel)]="newsletterCity" [disabled]="isSubmitting" required />
+          <input type="email" name="email" class="newsletter-input email-input" placeholder="Your Email Address"
+            [(ngModel)]="newsletterEmail" [disabled]="isSubmitting" required />
+        </div>
+
         <button type="submit" class="newsletter-btn" [disabled]="isSubmitting">
-          <span *ngIf="!isSubmitting">Subscribe Now</span>
-          <span *ngIf="isSubmitting">Subscribing...</span>
+          <span *ngIf="!isSubmitting">📧 Subscribe to Daily Updates</span>
+          <span *ngIf="isSubmitting">⏳ Subscribing...</span>
         </button>
       </form>
 
@@ -516,6 +548,8 @@
         [class.error]="!submitSuccess">
         {{ submitMessage }}
       </div>
+
+      <p class="newsletter-note">🔒 We'll send you a verification email. Daily reports at 6:00 AM IST.</p>
     </div>
 
     <!-- Main Footer Grid -->

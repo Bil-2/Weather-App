@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class FooterComponent implements OnInit {
 
   newsletterEmail: string = '';
+  newsletterCity: string = '';
   isSubmitting: boolean = false;
   submitMessage: string = '';
   submitSuccess: boolean = false;
@@ -20,8 +21,16 @@ export class FooterComponent implements OnInit {
   onNewsletterSubmit(event: Event) {
     event.preventDefault();
 
+    // Validate email
     if (!this.newsletterEmail || !this.isValidEmail(this.newsletterEmail)) {
       this.submitMessage = 'Please enter a valid email address';
+      this.submitSuccess = false;
+      return;
+    }
+
+    // Validate city
+    if (!this.newsletterCity || this.newsletterCity.trim().length < 2) {
+      this.submitMessage = 'Please enter your city name';
       this.submitSuccess = false;
       return;
     }
@@ -29,10 +38,12 @@ export class FooterComponent implements OnInit {
     this.isSubmitting = true;
     this.submitMessage = '';
 
-    // Netlify Forms submission
+    // Netlify Forms submission with city
     const formData = new FormData();
     formData.append('form-name', 'newsletter');
     formData.append('email', this.newsletterEmail);
+    formData.append('city', this.newsletterCity);
+    formData.append('timestamp', new Date().toISOString());
 
     fetch('/', {
       method: 'POST',
@@ -40,15 +51,16 @@ export class FooterComponent implements OnInit {
       body: new URLSearchParams(formData as any).toString()
     })
       .then(() => {
-        this.submitMessage = '🎉 Success! Check your inbox for weather updates.';
+        this.submitMessage = '🎉 Success! Check your email to verify your subscription.';
         this.submitSuccess = true;
         this.newsletterEmail = '';
+        this.newsletterCity = '';
         this.isSubmitting = false;
 
-        // Clear message after 5 seconds
+        // Clear message after 8 seconds
         setTimeout(() => {
           this.submitMessage = '';
-        }, 5000);
+        }, 8000);
       })
       .catch((error) => {
         console.error('Newsletter subscription error:', error);
