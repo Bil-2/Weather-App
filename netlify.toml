@@ -10,6 +10,15 @@
   to = "/index.html"
   status = 200
 
-# Note: Scheduled functions configured via Netlify UI
-# Go to: Site → Functions → daily-weather-email → Schedule
-# Set cron: 30 0 * * * (6:00 AM IST)
+# Scheduled Function Configuration
+# Runs daily at 6:00 AM IST (12:30 AM UTC)
+[[functions]]
+  name = "daily-weather-email"
+  schedule = "30 0 * * *"
+
+# IMPORTANT: After deployment, configure these environment variables in Netlify:
+# 1. NETLIFY_API_TOKEN - Get from: https://app.netlify.com/user/applications/personal
+# 2. NETLIFY_SITE_ID - Found in Site Settings → General → Site details
+# 3. SENDGRID_API_KEY - Get from: https://app.sendgrid.com/settings/api_keys
+# 4. SENDER_EMAIL - Your verified sender email in SendGrid
+# 5. OPENWEATHER_API_KEY - (Optional, has default)

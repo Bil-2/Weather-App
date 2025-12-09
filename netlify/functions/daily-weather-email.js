@@ -1,10 +1,12 @@
 // Daily Weather Email Function - Netlify Scheduled Function
 // Runs every day at 6:00 AM IST (12:30 AM UTC)
+// Schedule: 30 0 * * * (cron format)
 
 const axios = require('axios');
 
 exports.handler = async (event) => {
   console.log('🌅 Daily Weather Email Function Starting...');
+  console.log('Event type:', event.httpMethod || 'scheduled');
 
   try {
     // Step 1: Fetch all newsletter subscribers from Netlify Forms API
@@ -12,8 +14,13 @@ exports.handler = async (event) => {
     const SITE_ID = process.env.NETLIFY_SITE_ID;
 
     if (!NETLIFY_API_TOKEN || !SITE_ID) {
-      throw new Error('Missing Netlify API credentials');
+      console.error('❌ Missing environment variables');
+      console.error('NETLIFY_API_TOKEN:', NETLIFY_API_TOKEN ? 'Set' : 'Missing');
+      console.error('SITE_ID:', SITE_ID ? 'Set' : 'Missing');
+      throw new Error('Missing Netlify API credentials. Please set NETLIFY_API_TOKEN and NETLIFY_SITE_ID in environment variables.');
     }
+
+    console.log('✅ Fetching form submissions...');
 
     // Get form submissions
     const formsResponse = await axios.get(
@@ -25,17 +32,25 @@ exports.handler = async (event) => {
       }
     );
 
+    console.log(`📋 Total submissions received: ${formsResponse.data.length}`);
+
     const subscribers = formsResponse.data
-      .filter(sub => sub.form_name === 'newsletter')
+      .filter(sub => sub.form_name === 'newsletter' && sub.data && sub.data.email && sub.data.city)
       .map(sub => ({
         email: sub.data.email,
         city: sub.data.city,
         timestamp: sub.created_at
       }));
 
-    console.log(`📧 Found ${subscribers.length} subscribers`);
+    // Remove duplicates (keep latest subscription per email)
+    const uniqueSubscribers = Array.from(
+      new Map(subscribers.map(sub => [sub.email, sub])).values()
+    );
 
-    if (subscribers.length === 0) {
+    console.log(`📧 Found ${uniqueSubscribers.length} unique subscribers`);
+
+    if (uniqueSubscribers.length === 0) {
+      console.log('⚠️ No subscribers found');
       return {
         statusCode: 200,
         body: JSON.stringify({ message: 'No subscribers found' })
@@ -44,11 +59,14 @@ exports.handler = async (event) => {
 
     // Step 2: Send weather emails using SendGrid
     const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY;
-    const FROM_EMAIL = process.env.SENDER_EMAIL || 'weather@yourdomain.com';
+    const FROM_EMAIL = process.env.SENDER_EMAIL || 'noreply@yourdomain.com';
 
     if (!SENDGRID_API_KEY) {
-      throw new Error('Missing SendGrid API key');
+      console.error('❌ Missing SENDGRID_API_KEY');
+      throw new Error('Missing SendGrid API key. Please set SENDGRID_API_KEY in environment variables.');
     }
+
+    console.log('✅ SendGrid configured');
 
     const sgMail = require('@sendgrid/mail');
     sgMail.setApiKey(SENDGRID_API_KEY);
@@ -56,7 +74,9 @@ exports.handler = async (event) => {
     // Step 3: Fetch weather for each subscriber and send email
     const OPENWEATHER_API_KEY = process.env.OPENWEATHER_API_KEY || '24d300584f820ede6886da93fa566cd2';
 
-    const emailPromises = subscribers.map(async (subscriber) => {
+    console.log('📤 Starting to send emails...');
+
+    const emailPromises = uniqueSubscribers.map(async (subscriber) => {
       try {
         // Fetch weather data
         const weatherResponse = await axios.get(
@@ -170,9 +190,10 @@ exports.handler = async (event) => {
       statusCode: 200,
       body: JSON.stringify({
         message: 'Daily weather emails sent',
-        total: subscribers.length,
+        total: uniqueSubscribers.length,
         successful,
         failed,
+        timestamp: new Date().toISOString(),
         results
       })
     };

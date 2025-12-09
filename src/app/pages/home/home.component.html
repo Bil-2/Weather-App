@@ -1,4 +1,54 @@
 <div class="content" role="main">
   <app-search-bar (weatherDataEvent)="receiveWeatherData($event)"></app-search-bar>
   <app-card [weatherData]="weatherData"></app-card>
+  
+  <!-- Newsletter Subscription Section -->
+  <div class="newsletter-section">
+    <div class="newsletter-container">
+      <div class="newsletter-header">
+        <h2>☀️ Stay Weather-Ready</h2>
+        <p>Get personalized weather alerts and forecasts delivered to your inbox every morning</p>
+      </div>
+      
+      <form name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="newsletter-form" (ngSubmit)="onSubscribe($event)">
+        <input type="hidden" name="form-name" value="newsletter">
+        <p style="display: none;">
+          <label>Don't fill this out: <input name="bot-field"></label>
+        </p>
+        
+        <div class="form-group">
+          <label for="email">📧 Email Address</label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            [(ngModel)]="subscriptionEmail"
+            placeholder="your@email.com" 
+            required>
+        </div>
+        
+        <div class="form-group">
+          <label for="city">🌍 Your City</label>
+          <input 
+            type="text" 
+            id="city" 
+            name="city" 
+            [(ngModel)]="subscriptionCity"
+            placeholder="e.g., Mumbai, Delhi, Bangalore" 
+            required>
+        </div>
+        
+        <button type="submit" class="subscribe-btn" [disabled]="isSubmitting">
+          <span *ngIf="!isSubmitting">📧 Subscribe to Daily Updates</span>
+          <span *ngIf="isSubmitting">⏳ Subscribing...</span>
+        </button>
+        
+        <p class="privacy-note">🔒 We'll send you a verification email. Daily reports at 6:00 AM IST.</p>
+        
+        <div *ngIf="subscriptionMessage" class="subscription-message" [class.success]="subscriptionSuccess" [class.error]="!subscriptionSuccess">
+          {{ subscriptionMessage }}
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
