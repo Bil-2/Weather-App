@@ -17,6 +17,8 @@ services:
       dockerfile: backend.Dockerfile
     ports:
       - "9000:9000"
+    volumes:
+      - ./subscriptions.json:/app/subscriptions.json
     environment:
       - PORT=9000
       # Add OPENWEATHER_API_KEY environment variable if needed

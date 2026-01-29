@@ -4,8 +4,8 @@ WORKDIR /app
 
 # Initialize and install dependencies including TypeScript
 RUN npm init -y && \
-    npm install express axios body-parser && \
-    npm install --save-dev typescript ts-node @types/node @types/express @types/body-parser
+    npm install express axios body-parser node-cron @sendgrid/mail && \
+    npm install --save-dev typescript ts-node @types/node @types/express @types/body-parser @types/node-cron
 
 # Copy configuration and code
 COPY backend.tsconfig.json ./tsconfig.json
