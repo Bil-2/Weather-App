@@ -275,6 +275,35 @@ npm run build
 # Output: dist/weather-app/
 ```
 
+### **5. Run with Docker**
+
+**Option A: Using Docker Compose (Recommended)**
+
+```bash
+docker-compose up --build
+# Visit http://localhost:4200
+```
+
+**Option B: Separate Containers**
+
+1. Build Frontend:
+   ```bash
+   docker build -t weather-frontend .
+   ```
+2. Build Backend:
+   ```bash
+   docker build -t weather-backend -f backend.Dockerfile .
+   ```
+3. Run Backend:
+   ```bash
+   docker run -p 9000:9000 weather-backend
+   ```
+4. Run Frontend:
+   ```bash
+   docker run -p 4200:80 weather-frontend
+   ```
+
+
 ---
 
 ## 📧 Email Notification Setup (Step-by-Step)
