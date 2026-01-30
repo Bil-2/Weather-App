@@ -23,7 +23,12 @@ export class SearchBarComponent implements OnInit {
 
   ngOnInit(): void {
     // Auto-detect location on init
-    this.detectLocation();
+    // Auto-detect location on init - Disabled to prevent browser violations
+    // this.detectLocation();
+    // Default to Kolkata as requested for Indian priority, or London
+    this.location = "Kolkata, IN";
+    this.searchControl.setValue(this.location);
+    this.search();
 
     this.filteredOptions = this.searchControl.valueChanges.pipe(
       debounceTime(300),
