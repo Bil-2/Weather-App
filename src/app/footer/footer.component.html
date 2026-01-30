@@ -517,40 +517,7 @@
 <footer class="modern-footer">
   <div class="footer-container">
 
-    <!-- CTA Section -->
-    <div class="footer-cta">
-      <h2>Stay Weather-Ready</h2>
-      <p>Get personalized weather alerts and forecasts delivered to your inbox every morning</p>
-
-      <form class="newsletter-form" name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field"
-        (ngSubmit)="onNewsletterSubmit($event)">
-        <!-- Netlify Forms hidden fields -->
-        <input type="hidden" name="form-name" value="newsletter" />
-        <p style="display: none;">
-          <label>Don't fill this out: <input name="bot-field" /></label>
-        </p>
-
-        <div class="newsletter-inputs">
-          <input type="text" name="city" class="newsletter-input city-input" placeholder="Your City (e.g., Mumbai)"
-            [(ngModel)]="newsletterCity" [disabled]="isSubmitting" required />
-          <input type="email" name="email" class="newsletter-input email-input" placeholder="Your Email Address"
-            [(ngModel)]="newsletterEmail" [disabled]="isSubmitting" required />
-        </div>
-
-        <button type="submit" class="newsletter-btn" [disabled]="isSubmitting">
-          <span *ngIf="!isSubmitting">📧 Subscribe to Daily Updates</span>
-          <span *ngIf="isSubmitting">⏳ Subscribing...</span>
-        </button>
-      </form>
-
-      <!-- Feedback Message -->
-      <div *ngIf="submitMessage" class="newsletter-message" [class.success]="submitSuccess"
-        [class.error]="!submitSuccess">
-        {{ submitMessage }}
-      </div>
-
-      <p class="newsletter-note">🔒 We'll send you a verification email. Daily reports at 6:00 AM IST.</p>
-    </div>
+    <!-- CTA Section Removed (Duplicate) -->
 
     <!-- Main Footer Grid -->
     <div class="footer-grid">

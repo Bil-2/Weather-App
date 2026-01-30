@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit {
   isSubmitting: boolean = false;
   subscriptionMessage: string = '';
   subscriptionSuccess: boolean = false;
+  isUpdateMode: boolean = false;
 
   constructor(private http: HttpClient) { }
 
@@ -23,11 +24,16 @@ export class HomeComponent implements OnInit {
     this.weatherData = data;
   }
 
+  toggleUpdateMode() {
+    this.isUpdateMode = !this.isUpdateMode;
+    this.subscriptionMessage = '';
+  }
+
   onSubscribe(event: Event) {
     event.preventDefault();
-    
+
     if (!this.subscriptionEmail || !this.subscriptionCity) {
-      this.subscriptionMessage = '❌ Please fill in both email and city';
+      this.subscriptionMessage = 'Please fill in both email and city';
       this.subscriptionSuccess = false;
       return;
     }
@@ -45,17 +51,20 @@ export class HomeComponent implements OnInit {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams(formData as any).toString()
     })
-    .then(() => {
-      this.subscriptionMessage = '✅ Successfully subscribed! Check your email for confirmation.';
-      this.subscriptionSuccess = true;
-      this.subscriptionEmail = '';
-      this.subscriptionCity = '';
-      this.isSubmitting = false;
-    })
-    .catch((error) => {
-      this.subscriptionMessage = '❌ Subscription failed. Please try again.';
-      this.subscriptionSuccess = false;
-      this.isSubmitting = false;
-    });
+      .then(() => {
+        this.subscriptionMessage = this.isUpdateMode
+          ? 'City updated successfully! You will receive forecasts for your new city.'
+          : 'Successfully subscribed! Check your email for confirmation.';
+        this.subscriptionSuccess = true;
+        this.subscriptionEmail = '';
+        this.subscriptionCity = '';
+        this.isSubmitting = false;
+        this.isUpdateMode = false;
+      })
+      .catch((error) => {
+        this.subscriptionMessage = 'Subscription failed. Please try again.';
+        this.subscriptionSuccess = false;
+        this.isSubmitting = false;
+      });
   }
 }

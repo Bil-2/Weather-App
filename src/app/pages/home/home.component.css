@@ -5,124 +5,219 @@
 }
 
 .newsletter-container {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 20px;
-  padding: 40px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-  color: white;
+  /* High contrast Glassmorphism for Bright Mode */
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 24px;
+  padding: 48px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  color: #1e293b;
+  /* Slate 800 - Dark text */
+  background-image: linear-gradient(145deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shine effect */
+.newsletter-container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+  transform: rotate(30deg);
+  pointer-events: none;
 }
 
 .newsletter-header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 2;
 }
 
 .newsletter-header h2 {
-  font-size: 28px;
-  margin: 0 0 10px 0;
-  font-weight: 700;
+  font-size: 32px;
+  margin: 0 0 12px 0;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  /* Darker gradient for visibility on light */
+  background: linear-gradient(to right, #1e40af, #4f46e5);
+  /* Blue to Indigo */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .newsletter-header p {
   font-size: 16px;
-  opacity: 0.95;
-  line-height: 1.5;
+  opacity: 1;
+  color: #475569;
+  /* Slate 600 */
+  line-height: 1.6;
+  font-weight: 500;
 }
 
 .newsletter-form {
   max-width: 500px;
   margin: 0 auto;
+  position: relative;
+  z-index: 2;
 }
 
-.form-group {
-  margin-bottom: 20px;
+/* --- Floating Label Logic --- */
+.floating-label {
+  position: relative;
+  margin-bottom: 24px;
 }
 
-.form-group label {
-  display: block;
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 8px;
-  opacity: 0.95;
-}
-
-.form-group input {
+.floating-label input {
   width: 100%;
-  padding: 14px 16px;
-  border: none;
-  border-radius: 10px;
+  padding: 16px 20px;
+  padding-top: 24px;
+  /* Space for label */
+  padding-bottom: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
   font-size: 16px;
-  background: rgba(255, 255, 255, 0.95);
-  color: #333;
+  background: rgba(255, 255, 255, 0.6);
+  /* Lighter input background */
+  color: #0f172a;
+  /* Slate 900 */
   box-sizing: border-box;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.form-group input:focus {
+.floating-label input:focus {
   outline: none;
-  background: white;
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.95);
+  border-color: #6366f1;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
 }
 
-.form-group input::placeholder {
-  color: #999;
+.floating-label label {
+  position: absolute;
+  top: 18px;
+  left: 20px;
+  font-size: 16px;
+  color: #64748b;
+  /* Slate 500 */
+  pointer-events: none;
+  transition: all 0.3s ease;
+  transform-origin: left top;
+}
+
+/* Float label when focus or having value (placeholder shown check) */
+.floating-label input:focus+label,
+.floating-label input:not(:placeholder-shown)+label {
+  transform: translateY(-12px) scale(0.75);
+  color: #4f46e5;
+  font-weight: 700;
+}
+
+.floating-label i {
+  margin-right: 6px;
 }
 
 .subscribe-btn {
   width: 100%;
-  padding: 16px;
-  background: white;
-  color: #667eea;
+  padding: 20px;
+  background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+  color: white;
   border: none;
-  border-radius: 10px;
-  font-size: 16px;
+  border-radius: 12px;
+  font-size: 18px;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-top: 10px;
+  margin-top: 20px;
+  box-shadow: 0 4px 15px rgba(67, 56, 202, 0.3);
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.5px;
 }
 
 .subscribe-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(67, 56, 202, 0.4);
+  filter: brightness(110%);
+}
+
+.subscribe-btn:active:not(:disabled) {
+  transform: translateY(-1px);
 }
 
 .subscribe-btn:disabled {
-  opacity: 0.7;
+  background: #94a3b8;
+  color: #e2e8f0;
   cursor: not-allowed;
+  box-shadow: none;
+}
+
+.update-link-container {
+  text-align: center;
+  margin-top: 16px;
+}
+
+.update-link {
+  background: none;
+  border: none;
+  color: #4f46e5;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  opacity: 0.9;
+  transition: all 0.2s;
+  padding: 5px;
+}
+
+.update-link:hover {
+  color: #4338ca;
+  opacity: 1;
 }
 
 .privacy-note {
   text-align: center;
   font-size: 13px;
-  margin-top: 15px;
+  margin-top: 24px;
   opacity: 0.9;
+  color: #64748b;
+  font-weight: 500;
 }
 
 .subscription-message {
-  margin-top: 20px;
-  padding: 14px;
-  border-radius: 10px;
+  margin-top: 25px;
+  padding: 16px;
+  border-radius: 12px;
   text-align: center;
   font-weight: 600;
-  animation: slideIn 0.3s ease;
+  animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
 }
 
 .subscription-message.success {
-  background: rgba(16, 185, 129, 0.2);
-  border: 2px solid rgba(16, 185, 129, 0.5);
+  background: rgba(22, 163, 74, 0.1);
+  border: 1px solid rgba(22, 163, 74, 0.2);
+  color: #15803d;
 }
 
 .subscription-message.error {
-  background: rgba(239, 68, 68, 0.2);
-  border: 2px solid rgba(239, 68, 68, 0.5);
+  background: rgba(220, 38, 38, 0.1);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  color: #b91c1c;
 }
 
 @keyframes slideIn {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -131,14 +226,6 @@
 
 @media (max-width: 768px) {
   .newsletter-container {
-    padding: 30px 20px;
-  }
-  
-  .newsletter-header h2 {
-    font-size: 24px;
-  }
-  
-  .newsletter-header p {
-    font-size: 14px;
+    padding: 32px 20px;
   }
 }
