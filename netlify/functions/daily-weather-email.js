@@ -124,7 +124,7 @@ exports.handler = async (event) => {
           <body>
             <div class="container">
               <div class="header">
-                <h1>☀️ Your Daily Weather Report</h1>
+                <h1>Daily Weather Report</h1>
                 <p>${subscriber.city}, ${weather.sys.country}</p>
               </div>
               <div class="content">
@@ -150,7 +150,7 @@ exports.handler = async (event) => {
                 </div>
 
                 <p style="text-align: center; color: #6b7280; margin: 30px 0;">
-                  Have a great day! Stay weather-ready. 🌤️
+                  Have a great day! Stay weather-ready.
                 </p>
               </div>
               <div class="footer">
@@ -166,7 +166,7 @@ exports.handler = async (event) => {
         const msg = {
           to: subscriber.email,
           from: FROM_EMAIL,
-          subject: `☀️ Daily Weather: ${temp}°C in ${subscriber.city}`,
+          subject: `Daily Weather: ${temp}°C in ${subscriber.city}`,
           html: emailHTML
         };
 
